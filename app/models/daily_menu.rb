@@ -2,12 +2,12 @@ class DailyMenu < ActiveRecord::Base
   before_validation :set_date
   validates_uniqueness_of :date
 
-  has_one :first_course
-  has_one :main_course
-  has_one :drink_course
-  accepts_nested_attributes_for :first_course
-  accepts_nested_attributes_for :main_course
-  accepts_nested_attributes_for :drink_course
+  has_many :first_courses
+  has_many :main_courses
+  has_many :drink_courses
+  accepts_nested_attributes_for :first_courses
+  accepts_nested_attributes_for :main_courses
+  accepts_nested_attributes_for :drink_courses
 
   private
 

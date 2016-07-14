@@ -11,20 +11,26 @@ ActiveAdmin.register DailyMenu do
     panel 'Please choose your lunch for today' do
       "Today is #{Date.today.strftime('%A, %B %d')}"
     end
-    f.inputs :name => 'First Course', :for => :first_course do |c|
-      c.input :name
-      c.input :price
-      c.input :image, :as => :file, :hint => c.template.image_tag(c.object.image.url(:thumb))
+    f.inputs 'First Courses' do
+      f.has_many :first_courses, heading: false, allow_destroy: true do |c|
+        c.input :name
+        c.input :price
+        c.input :image, :as => :file, :hint => c.template.image_tag(c.object.image.url(:thumb))
+      end
     end
-    f.inputs :name => 'Main Course', :for => :main_course do |c|
-      c.input :name
-      c.input :price
-      c.input :image, :as => :file, :hint => c.template.image_tag(c.object.image.url(:thumb))
+    f.inputs 'Main Courses' do
+      f.has_many :main_courses, heading: false, allow_destroy: true do |c|
+        c.input :name
+        c.input :price
+        c.input :image, :as => :file, :hint => c.template.image_tag(c.object.image.url(:thumb))
+      end
     end
-    f.inputs :name => 'Drink', :for => :drink_course do |c|
-      c.input :name
-      c.input :price
-      c.input :image, :as => :file, :hint => c.template.image_tag(c.object.image.url(:thumb))
+    f.inputs 'Drinks' do
+      f.has_many :drink_courses, heading: false, allow_destroy: true do |c|
+        c.input :name
+        c.input :price
+        c.input :image, :as => :file, :hint => c.template.image_tag(c.object.image.url(:thumb))
+      end
     end
     f.actions
   end
@@ -34,36 +40,26 @@ ActiveAdmin.register DailyMenu do
       super.where(date: Date.today)
     end
 
-    def new
-      @daily_menu = DailyMenu.new
-      @daily_menu.build_first_course
-      @daily_menu.build_main_course
-      @daily_menu.build_drink_course
-    end
-
     def permitted_params
-      params.permit! # allow all parameters
+      params.permit!
     end
   end
 
   index do
-    column 'First Course' do |menu|
-      menu.first_course.name + ', costs ' + menu.first_course.price.to_s
+    column 'First Courses' do |menu|
+      menu.first_courses.map do |course|
+        link_to(course.name, admin_course_path(course))
+      end.join('<br />').html_safe
     end
-    column 'First Course Photo' do |menu|
-      image_tag(menu.first_course.image.url(:thumb), :height => '100')
+    column 'Main Courses' do |menu|
+      menu.main_courses.map do |course|
+        link_to(course.name, admin_course_path(course))
+      end.join('<br />').html_safe
     end
-    column 'Main Course' do |menu|
-      menu.main_course.name + ', costs ' + menu.main_course.price.to_s
-    end
-    column 'Main Course Photo' do |menu|
-      image_tag(menu.main_course.image.url(:thumb), :height => '100')
-    end
-    column 'Drink' do |menu|
-      menu.drink_course.name + ', costs ' + menu.drink_course.price.to_s
-    end
-    column 'Drink Photo' do |menu|
-      image_tag(menu.drink_course.image.url(:thumb), :height => '100')
+    column 'Drinks' do |menu|
+      menu.drink_courses.map do |course|
+        link_to(course.name, admin_course_path(course))
+      end.join('<br />').html_safe
     end
     actions
   end
