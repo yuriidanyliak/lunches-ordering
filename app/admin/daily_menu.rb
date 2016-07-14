@@ -3,7 +3,9 @@ ActiveAdmin.register DailyMenu do
 
   before_filter :skip_sidebar!
 
-  config.clear_action_items! if [:index]
+  config.clear_action_items!
+
+  actions :all, :except => [:show]
 
   form do |f|
     panel 'Please choose your lunch for today' do
@@ -12,14 +14,17 @@ ActiveAdmin.register DailyMenu do
     f.inputs :name => 'First Course', :for => :first_course do |c|
       c.input :name
       c.input :price
+      c.input :image, :as => :file, :hint => c.template.image_tag(c.object.image.url(:thumb))
     end
     f.inputs :name => 'Main Course', :for => :main_course do |c|
       c.input :name
       c.input :price
+      c.input :image, :as => :file, :hint => c.template.image_tag(c.object.image.url(:thumb))
     end
     f.inputs :name => 'Drink', :for => :drink_course do |c|
       c.input :name
       c.input :price
+      c.input :image, :as => :file, :hint => c.template.image_tag(c.object.image.url(:thumb))
     end
     f.actions
   end
@@ -37,7 +42,6 @@ ActiveAdmin.register DailyMenu do
     end
 
     def permitted_params
-      # params.permit(:blog => [:name, :description])
       params.permit! # allow all parameters
     end
   end
@@ -46,28 +50,22 @@ ActiveAdmin.register DailyMenu do
     column 'First Course' do |menu|
       menu.first_course.name + ', costs ' + menu.first_course.price.to_s
     end
+    column 'First Course Photo' do |menu|
+      image_tag(menu.first_course.image.url(:thumb), :height => '100')
+    end
     column 'Main Course' do |menu|
       menu.main_course.name + ', costs ' + menu.main_course.price.to_s
+    end
+    column 'Main Course Photo' do |menu|
+      image_tag(menu.main_course.image.url(:thumb), :height => '100')
     end
     column 'Drink' do |menu|
       menu.drink_course.name + ', costs ' + menu.drink_course.price.to_s
     end
-    actions
-    config.clear_action_items!
-  end
-
-  show do
-    attributes_table do
-      row 'First Course' do |menu|
-        menu.first_course.name + ', costs ' + menu.first_course.price.to_s
-      end
-      row 'Main Course' do |menu|
-        menu.main_course.name + ', costs ' + menu.main_course.price.to_s
-      end
-      row 'Drink' do |menu|
-        menu.drink_course.name + ', costs ' + menu.drink_course.price.to_s
-      end
+    column 'Drink Photo' do |menu|
+      image_tag(menu.drink_course.image.url(:thumb), :height => '100')
     end
+    actions
   end
 
 end

@@ -46,3 +46,6 @@ end
 
 gem 'activeadmin', github: 'activeadmin'
 
+gem 'rmagick'
+gem 'carrierwave'
+
