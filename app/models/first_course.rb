@@ -1,0 +1,1 @@
+class FirstCourse < Course; end
