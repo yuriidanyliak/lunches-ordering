@@ -1,5 +1,6 @@
 class Course < ActiveRecord::Base
   belongs_to :daily_menu
+  has_many :orders
 
   validates_presence_of :name
   validates :price, presence: true, numericality: true
