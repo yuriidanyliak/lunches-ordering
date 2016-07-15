@@ -3,4 +3,8 @@
 #= require fullcalendar
 
 $ ->
-  $('#calendar').fullCalendar {}
+  $('#calendar-admin').fullCalendar {
+    events: '/orders.json?admin=true'
+    displayEventTime: false
+    eventColor: '#ffffff'
+  }

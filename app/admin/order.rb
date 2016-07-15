@@ -1,6 +1,8 @@
 ActiveAdmin.register Order do
   menu priority: 3, label: 'Total orders by today'
 
+  scope :of_today, default: true
+
   index do
     panel 'Total cost of lunch today' do
       Order.total_cost_for_today
@@ -35,10 +37,6 @@ ActiveAdmin.register Order do
   end
 
   controller do
-    def scoped_collection
-      super.of_today
-    end
-
     def permitted_params
       params.permit!
     end
