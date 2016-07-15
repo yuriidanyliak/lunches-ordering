@@ -1,7 +1,12 @@
 ActiveAdmin.register DailyMenu do
-  menu label: 'Menu for today'
+  menu priority: 2, label: 'Menu for today'
 
   before_filter :skip_sidebar!
+
+  permit_params :date,
+                first_courses_attributes: [:id, :name, :price, :image, :_destroy],
+                main_courses_attributes: [:id, :name, :price, :image, :_destroy],
+                drink_courses_attributes: [:id, :name, :price, :image, :_destroy]
 
   config.clear_action_items!
 
@@ -38,10 +43,6 @@ ActiveAdmin.register DailyMenu do
   controller do
     def scoped_collection
       super.where(date: Date.today)
-    end
-
-    def permitted_params
-      params.permit!
     end
   end
 
