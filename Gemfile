@@ -46,3 +46,11 @@ end
 
 gem 'activeadmin', github: 'activeadmin'
 
+gem 'rmagick'
+gem 'carrierwave'
+
+gem 'fullcalendar-rails'
+gem 'momentjs-rails'
+
+gem 'twitter-bootstrap-rails'
+gem 'simple_form'

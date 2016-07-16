@@ -1,0 +1,1 @@
+class DrinkCourse < Course; end
