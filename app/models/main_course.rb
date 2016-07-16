@@ -1,1 +1,0 @@
-class MainCourse < Course; end
