@@ -2,7 +2,6 @@ json.array!(@orders) do |order|
   json.id order.id
   json.title order.user.email
   json.description "#{order.first_course.name}, #{order.main_course.name}, #{order.drink_course.name}"
-  # json.url admin_order_url(order)
   if @admin
     json.url admin_order_url(order)
   else

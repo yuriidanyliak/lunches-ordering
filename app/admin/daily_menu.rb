@@ -17,21 +17,21 @@ ActiveAdmin.register DailyMenu do
       "Today is #{Date.today.strftime('%A, %B %d')}"
     end
     f.inputs 'First Courses' do
-      f.has_many :first_courses, heading: false, allow_destroy: true do |c|
+      f.has_many :first_courses, allow_destroy: true do |c|
         c.input :name
         c.input :price
         c.input :image, :as => :file, :hint => c.template.image_tag(c.object.image.url(:thumb))
       end
     end
     f.inputs 'Main Courses' do
-      f.has_many :main_courses, heading: false, allow_destroy: true do |c|
+      f.has_many :main_courses, allow_destroy: true do |c|
         c.input :name
         c.input :price
         c.input :image, :as => :file, :hint => c.template.image_tag(c.object.image.url(:thumb))
       end
     end
     f.inputs 'Drinks' do
-      f.has_many :drink_courses, heading: false, allow_destroy: true do |c|
+      f.has_many :drink_courses, allow_destroy: true do |c|
         c.input :name
         c.input :price
         c.input :image, :as => :file, :hint => c.template.image_tag(c.object.image.url(:thumb))
@@ -43,6 +43,11 @@ ActiveAdmin.register DailyMenu do
   controller do
     def scoped_collection
       super.where(date: Date.today)
+    end
+
+    def apply_filtering(chain)
+      @search = chain.ransack clean_search_params
+      @search.result(distinct: true)
     end
   end
 

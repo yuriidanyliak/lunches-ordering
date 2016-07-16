@@ -4,7 +4,7 @@ ActiveAdmin.register Course do
     column :name
     column :price
     column 'Date' do |course|
-      course.daily_menu.date.strftime('%A, %B %d')
+      course.daily_menu.date.strftime('%A, %B %d') if course.daily_menu
     end
     column 'Image' do |course|
       image_tag(course.image.url(:thumb), :height => '100')

@@ -1,2 +1,34 @@
-<h1>DailyMenus#show</h1>
-<p><%= @daily_menu.first_courses.first.name %></p>
+<h1>Menu for <%= @daily_menu.date.strftime('%A, %B %d') %></h1>
+
+<h3>First courses</h3>
+<ol>
+  <%- @daily_menu.first_courses.each do |course| %>
+    <li>
+      <p><%= course.name %></p>
+      <p><%= course.price %></p>
+      <%= image_tag(course.image.url(:thumb), :height => '100') %>
+    </li>
+  <%- end %>
+</ol>
+
+<h3>Main courses</h3>
+<ol>
+  <%- @daily_menu.main_courses.each do |course| %>
+      <li>
+        <p><%= course.name %></p>
+        <p><%= course.price %></p>
+        <%= image_tag(course.image.url(:thumb), :height => '100') %>
+      </li>
+  <%- end %>
+</ol>
+
+<h3>Drinks</h3>
+<ol>
+  <%- @daily_menu.drink_courses.each do |course| %>
+      <li>
+        <p><%= course.name %></p>
+        <p><%= course.price %></p>
+        <%= image_tag(course.image.url(:thumb), :height => '100') %>
+      </li>
+  <%- end %>
+</ol>

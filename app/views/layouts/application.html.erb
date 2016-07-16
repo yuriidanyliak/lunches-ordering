@@ -8,16 +8,17 @@
 </head>
 <body>
 
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
+<div class="container">
+  <p class="notice"><%= notice %></p>
+  <p class="alert"><%= alert %></p>
 
-<%= link_to 'Edit profile', edit_user_registration_path %>
-<br/>
-<%= link_to 'Sign out', destroy_user_session_path, method: :delete %>
-<br/>
-<%= link_to 'Create an order', '#' %>
+  <%= link_to 'Edit profile', edit_user_registration_path %>
+  <br/>
+  <%= link_to 'Sign out', destroy_user_session_path, method: :delete %>
+  <br/>
 
-<%= yield %>
+  <%= yield %>
+</div>
 
 </body>
 </html>

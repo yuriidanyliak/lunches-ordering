@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   root 'orders#index'
-  get 'orders', to: 'orders#index'
+  resources :orders, only: [:new, :create, :index]
   get 'daily_menus/:id', to: 'daily_menus#show', as: 'daily_menus'
 
   # Example of regular route:

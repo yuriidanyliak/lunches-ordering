@@ -4,6 +4,10 @@ class Order < ActiveRecord::Base
   belongs_to :main_course
   belongs_to :drink_course
 
+  validates_presence_of :first_course
+  validates_presence_of :main_course
+  validates_presence_of :drink_course
+
   scope :of_today, -> { where('DATE(orders.created_at) = ?', Date.today) }
 
   def self.total_cost_for_today
