@@ -8,9 +8,9 @@ class OrdersController < ApplicationController
 
   def new
     @order = Order.new
-    @first_courses = FirstCourse.where('DATE(created_at) = ?', Date.today)
-    @main_courses = MainCourse.where('DATE(created_at) = ?', Date.today)
-    @drinks = DrinkCourse.where('DATE(created_at) = ?', Date.today)
+    @first_courses = FirstCourse.where('DATE(created_at) = ?', Time.zone.now.to_date)
+    @main_courses = MainCourse.where('DATE(created_at) = ?', Time.zone.now.to_date)
+    @drinks = DrinkCourse.where('DATE(created_at) = ?', Time.zone.now.to_date)
   end
 
   def create
