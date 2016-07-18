@@ -8,7 +8,7 @@ class Order < ActiveRecord::Base
   validates_presence_of :main_course
   validates_presence_of :drink_course
 
-  scope :of_today, -> { where('DATE(orders.created_at) = ?', Date.today) }
+  scope :of_today, -> { where('DATE(orders.created_at) = ?', Time.zone.now.to_date) }
 
   def self.total_cost_for_today
     of_today.joins(:first_course).sum(:price) +
