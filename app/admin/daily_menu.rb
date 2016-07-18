@@ -12,42 +12,37 @@ ActiveAdmin.register DailyMenu do
 
   actions :all, :except => [:show]
 
-  form do |f|
+  form do |form|
     panel 'Please choose your lunch for today' do
       "Today is #{Date.today.strftime('%A, %B %d')}"
     end
-    f.inputs 'First Courses' do
-      f.has_many :first_courses, allow_destroy: true do |c|
-        c.input :name
-        c.input :price
-        c.input :image, :as => :file, :hint => c.template.image_tag(c.object.image.url(:thumb))
+    form.inputs 'First Courses' do
+      form.has_many :first_courses, allow_destroy: true do |course|
+        course.input :name
+        course.input :price
+        course.input :image, :as => :file, :hint => course.template.image_tag(course.object.image.url(:thumb))
       end
     end
-    f.inputs 'Main Courses' do
-      f.has_many :main_courses, allow_destroy: true do |c|
-        c.input :name
-        c.input :price
-        c.input :image, :as => :file, :hint => c.template.image_tag(c.object.image.url(:thumb))
+    form.inputs 'Main Courses' do
+      form.has_many :main_courses, allow_destroy: true do |course|
+        course.input :name
+        course.input :price
+        course.input :image, :as => :file, :hint => course.template.image_tag(course.object.image.url(:thumb))
       end
     end
-    f.inputs 'Drinks' do
-      f.has_many :drink_courses, allow_destroy: true do |c|
-        c.input :name
-        c.input :price
-        c.input :image, :as => :file, :hint => c.template.image_tag(c.object.image.url(:thumb))
+    form.inputs 'Drinks' do
+      form.has_many :drink_courses, allow_destroy: true do |course|
+        course.input :name
+        course.input :price
+        course.input :image, :as => :file, :hint => course.template.image_tag(course.object.image.url(:thumb))
       end
     end
-    f.actions
+    form.actions
   end
 
   controller do
     def scoped_collection
-      super.where(date: Date.today)
-    end
-
-    def apply_filtering(chain)
-      @search = chain.ransack clean_search_params
-      @search.result(distinct: true)
+      super.where(date: Time.zone.now.to_date)
     end
   end
 
