@@ -1,7 +1,0 @@
-<%= simple_form_for @order do |f| %>
-    <%= f.association :first_course, collection: @first_courses, as: :select, input_html: { required: true } %>
-    <%= f.association :main_course, collection: @main_courses, as: :select, input_html: { required: true } %>
-    <%= f.association :drink_course, collection: @drinks, as: :select, input_html: { required: true } %>
-    <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
-    <%= f.button :submit %>
-<% end %>

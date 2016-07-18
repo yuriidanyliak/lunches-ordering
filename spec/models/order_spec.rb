@@ -23,4 +23,32 @@ describe Order, type: :model do
     end
   end
 
+  describe 'presence_of validation' do
+    let(:order) { build(:order) }
+
+    it 'validates first course' do
+      expect(order.valid?).to be_truthy
+
+      order.first_course_id = nil
+
+      expect(order.invalid?).to be_truthy
+    end
+
+    it 'validates main course' do
+      expect(order.valid?).to be_truthy
+
+      order.main_course_id = nil
+
+      expect(order.invalid?).to be_truthy
+    end
+
+    it 'validates drink' do
+      expect(order.valid?).to be_truthy
+
+      order.drink_course_id = nil
+
+      expect(order.invalid?).to be_truthy
+    end
+  end
+
 end

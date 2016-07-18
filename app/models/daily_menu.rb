@@ -12,6 +12,6 @@ class DailyMenu < ActiveRecord::Base
   private
 
   def set_date
-    self.date = Date.today
+    self.date = Time.zone.now.to_date
   end
 end

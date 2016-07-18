@@ -11,13 +11,13 @@ describe DailyMenu, type: :model do
     expect{DailyMenu.create!()}.to raise_error(ActiveRecord::RecordInvalid, 'Validation failed: Date has already been taken')
   end
 
-  it 'sets the today date before validation' do
+  it 'sets the date today before validation' do
     daily_menu = DailyMenu.new
 
     expect(daily_menu.date).to be_nil
 
     daily_menu.valid?
 
-    expect(daily_menu.date).to eq(Date.today)
+    expect(daily_menu.date).to eq(Time.zone.now.to_date)
   end
 end

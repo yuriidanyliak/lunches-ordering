@@ -1,0 +1,23 @@
+%h1
+  Menu for #{@daily_menu.date.strftime('%A, %B %d')}
+%h3 First courses
+%ol
+  - @daily_menu.first_courses.each do |course|
+    %li
+      %p= course.name
+      %p= course.price
+      = image_tag(course.image.url(:thumb), :height => '100')
+%h3 Main courses
+%ol
+  - @daily_menu.main_courses.each do |course|
+    %li
+      %p= course.name
+      %p= course.price
+      = image_tag(course.image.url(:thumb), :height => '100')
+%h3 Drinks
+%ol
+  - @daily_menu.drink_courses.each do |course|
+    %li
+      %p= course.name
+      %p= course.price
+      = image_tag(course.image.url(:thumb), :height => '100')
