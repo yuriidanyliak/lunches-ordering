@@ -49,3 +49,5 @@ gem 'rspec-kickstarter'
 gem 'factory_girl_rails'
 
 gem 'capybara'
+
+gem 'haml-rails', '~> 0.9'
